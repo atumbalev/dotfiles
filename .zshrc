@@ -124,3 +124,5 @@ source $ZSH/oh-my-zsh.sh
 
 # Neoshare custom scripts
 source $HOME/neoshare/scripts/neoshare-zshrch-scripts.sh
+alias zrc='nvim ~/.zshrc'
+export PATH="$HOME/.local/bin:$PATH"
