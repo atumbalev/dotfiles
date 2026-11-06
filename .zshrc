@@ -15,7 +15,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME=""  # powerlevel10k is installed by Homebrew and sourced below
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -77,18 +77,17 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-)
-
-#kubectl autocompletion
-autoload -Uz compinit
-compinit
-source <(kubectl completion zsh)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
+
+# Theme + plugins installed by Homebrew (see Brewfile)
+HOMEBREW_PREFIX="${HOMEBREW_PREFIX:-/opt/homebrew}"
+source "$HOMEBREW_PREFIX/share/powerlevel10k/powerlevel10k.zsh-theme"
+source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+# kubectl autocompletion
+command -v kubectl >/dev/null && source <(kubectl completion zsh)
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -121,7 +120,11 @@ source $ZSH/oh-my-zsh.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Neoshare custom scripts
-source $HOME/neoshare/scripts/neoshare-zshrch-scripts.sh
+# Neoshare custom scripts (work machine only)
+[[ -f $HOME/neoshare/scripts/neoshare-zshrch-scripts.sh ]] && source $HOME/neoshare/scripts/neoshare-zshrch-scripts.sh
 alias zrc='nvim ~/.zshrc'
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOMEBREW_PREFIX/opt/openjdk/bin:$PATH"
+
+# Must be sourced last
+source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
