@@ -1,0 +1,5 @@
+# Global ruff config (used when a project has no ruff.toml / pyproject.toml of its own).
+# Recent ruff versions enable ~400 rules by default; this goes back to the classic
+# error-focused set plus bugbear, which catches real bugs (e.g. mutable default args).
+[lint]
+select = ["E4", "E7", "E9", "F", "B"]

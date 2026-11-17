@@ -52,6 +52,9 @@ link() {
 link .zshrc
 link .p10k.zsh
 link .config/nvim
+link .config/ruff
+link .config/tmux
+link .config/herdr
 
 # 6. Neovim plugins (LazyVim installs LSPs/parsers on first open of each filetype)
 info "Syncing Neovim plugins"

@@ -1,0 +1,46 @@
+# herdr config (~/.config/herdr/config.toml). Full reference: herdr --default-config
+# Keys mirror .config/tmux/tmux.conf. Reload in a running session with: prefix r
+
+onboarding = false
+
+[theme]
+name = "tokyo-night"
+
+[terminal]
+new_cwd = "follow"
+
+[keys]
+# Same prefix as tmux. When nested inside tmux, press Ctrl-a twice to reach herdr.
+prefix = "ctrl+a"
+
+reload_config = "prefix+r"
+detach = "prefix+d"
+
+# Splits: | side by side, - stacked
+split_vertical = "prefix+|"
+split_horizontal = "prefix+minus"
+
+# Panes: hjkl to move, HJKL to resize, ; for the last pane (x close, z zoom are defaults)
+resize_pane_left = "prefix+shift+h"
+resize_pane_down = "prefix+shift+j"
+resize_pane_up = "prefix+shift+k"
+resize_pane_right = "prefix+shift+l"
+resize_mode = "prefix+shift+r"
+last_pane = "prefix+semicolon"
+
+# Tabs work like tmux windows (c new, n/p next/prev, 1..9 select are defaults)
+rename_tab = "prefix+comma"
+close_tab = "prefix+ampersand"
+
+# Workspaces work like tmux sessions (w picker is the default)
+rename_workspace = "prefix+$"
+
+# Closest thing to tmux copy mode: open scrollback in $EDITOR
+edit_scrollback = "prefix+["
+
+[[keys.command]]
+key = "prefix+alt+g"
+type = "popup"
+command = "lazygit"
+width = "90%"
+height = "90%"

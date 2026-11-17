@@ -13,6 +13,8 @@ brew "lazygit"
 
 # CLI
 brew "jq"
+brew "tmux"
+brew "herdr"
 brew "kubernetes-cli"
 brew "md2pdf"
 
@@ -30,5 +32,6 @@ cask "claude-code"
 
 # Apps
 cask "visual-studio-code"
+cask "skim"
 cask "iina"
 cask "transmission"
