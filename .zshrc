@@ -77,7 +77,7 @@ ZSH_THEME=""  # powerlevel10k is installed by Homebrew and sourced below
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git rails bundler)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -125,6 +125,9 @@ command -v kubectl >/dev/null && source <(kubectl completion zsh)
 alias zrc='nvim ~/.zshrc'
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOMEBREW_PREFIX/opt/openjdk/bin:$PATH"
+
+# Ruby (and other runtimes) managed by mise, see .config/mise/config.toml
+command -v mise >/dev/null && eval "$(mise activate zsh)"
 
 # Must be sourced last
 source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"

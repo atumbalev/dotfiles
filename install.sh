@@ -15,10 +15,18 @@ if ! xcode-select -p >/dev/null 2>&1; then
   exit 1
 fi
 
-# 2. Homebrew
+# Ask for the password once up front and keep sudo alive until the script exits,
+# so the Homebrew installer and .pkg casks (dotnet-sdk) don't prompt mid-run.
+info "Requesting administrator access (asked once, kept alive until done)"
+sudo -v
+while true; do sudo -n true; sleep 50; kill -0 "$$" || exit; done 2>/dev/null &
+SUDO_KEEPALIVE_PID=$!
+trap 'kill "$SUDO_KEEPALIVE_PID" 2>/dev/null' EXIT
+
+# 2. Homebrew (NONINTERACTIVE skips the "Press RETURN" prompt; sudo is already cached)
 if ! command -v brew >/dev/null 2>&1; then
   info "Installing Homebrew"
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /usr/local/bin/brew shellenv)"
 
@@ -55,8 +63,13 @@ link .config/nvim
 link .config/ruff
 link .config/tmux
 link .config/herdr
+link .config/mise
 
-# 6. Neovim plugins (LazyVim installs LSPs/parsers on first open of each filetype)
+# 6. Runtimes from .config/mise/config.toml (ruby, ...)
+info "Installing mise runtimes"
+mise install
+
+# 7. Neovim plugins (LazyVim installs LSPs/parsers on first open of each filetype)
 info "Syncing Neovim plugins"
 nvim --headless "+Lazy! sync" +qa
 

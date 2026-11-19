@@ -23,6 +23,8 @@ brew "node"
 brew "deno"
 brew "uv"
 brew "openjdk"
+brew "mise"     # ruby + other runtime versions
+brew "libyaml"  # needed to compile ruby (psych)
 cask "dotnet-sdk"
 
 # AI
